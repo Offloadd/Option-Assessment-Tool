@@ -463,72 +463,88 @@ function render() {
                 '</div>' : '') +
         '</div>' +
 
-        // Assessment Zone (Section 4)
-        (state.activeLifeArea ?
-            '<div class="card">' +
-                '<h2 style="margin-bottom: 12px;">🎯 Assessing: ' + state.lifeAreas[state.activeLifeArea].label + '</h2>' +
-                '<div class="assessment-container">' +
-                    '<div style="margin-bottom: 8px;">' +
-                        '<label style="display: block; font-weight: 600; margin-bottom: 4px; font-size: 14px;">What specific option are you considering?</label>' +
-                        '<input type="text" ' +
-                               'value="' + state.activeOptionText + '" ' +
-                               'oninput="updateOptionText(this.value);" ' +
-                               'placeholder="e.g., Accept Isaac\'s excavation project or Install new kitchen faucet">' +
-                    '</div>' +
-                    
-                    // Opportunity slider
-                    '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
-                            '<div class="slider-label" style="color: #4caf50; white-space: nowrap; font-size: 13px;">💚 Opportunity</div>' +
-                            '<div class="slider-value" style="color: #4caf50; font-weight: bold; min-width: 24px; text-align: center;">' + state.opportunity.value + '</div>' +
-                            '<div style="flex: 1; max-width: 90%;">' +
-                                '<input type="range" min="0" max="10" value="' + state.opportunity.value + '" ' +
-                                       'oninput="updateAssessment(\'opportunity\', this.value)" ' +
-                                       'style="background: ' + getAssessmentGradient('opportunity') + ';">' +
-                            '</div>' +
-                            '<button class="btn" onclick="toggleTextArea(\'opportunity\')" style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap;">text</button>' +
-                        '</div>' +
-                        '<textarea id="opportunityText" style="display: none;" ' +
-                               'placeholder="Why does this feel like an opportunity? What positive energy or potential does it have?" ' +
-                               'oninput="updateAssessmentText(\'opportunity\', this.value)">' + state.opportunity.why + '</textarea>' +
-                    '</div>' +
-                    
-                    // Stressor slider
-                    '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
-                            '<div class="slider-label" style="color: #f44336; white-space: nowrap; font-size: 13px;">⚠️ Stressor</div>' +
-                            '<div class="slider-value" style="color: #f44336; font-weight: bold; min-width: 24px; text-align: center;">' + state.stressor.value + '</div>' +
-                            '<div style="flex: 1; max-width: 90%;">' +
-                                '<input type="range" min="0" max="10" value="' + state.stressor.value + '" ' +
-                                       'oninput="updateAssessment(\'stressor\', this.value)" ' +
-                                       'style="background: ' + getAssessmentGradient('stressor') + ';">' +
-                            '</div>' +
-                            '<button class="btn" onclick="toggleTextArea(\'stressor\')" style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap;">text</button>' +
-                        '</div>' +
-                        '<textarea id="stressorText" style="display: none;" ' +
-                               'placeholder="Why does this feel stressful? What threatens or overwhelms you?" ' +
-                               'oninput="updateAssessmentText(\'stressor\', this.value)">' + state.stressor.why + '</textarea>' +
-                    '</div>' +
-                    
-                    // Stabilizer slider
-                    '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
-                            '<div class="slider-label" style="color: #1976d2; white-space: nowrap; font-size: 13px;">🛡️ Stabilizer</div>' +
-                            '<div class="slider-value" style="color: #1976d2; font-weight: bold; min-width: 24px; text-align: center;">' + state.stabilizer.value + '</div>' +
-                            '<div style="flex: 1; max-width: 90%;">' +
-                                '<input type="range" min="0" max="10" value="' + state.stabilizer.value + '" ' +
-                                       'oninput="updateAssessment(\'stabilizer\', this.value)" ' +
-                                       'style="background: ' + getAssessmentGradient('stabilizer') + ';">' +
-                            '</div>' +
-                            '<button class="btn" onclick="toggleTextArea(\'stabilizer\')" style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap;">text</button>' +
-                        '</div>' +
-                        '<textarea id="stabilizerText" style="display: none;" ' +
-                               'placeholder="Why does this feel stabilizing? What grounds, supports, or regulates you?" ' +
-                               'oninput="updateAssessmentText(\'stabilizer\', this.value)">' + state.stabilizer.why + '</textarea>' +
-                    '</div>' +
+        // Assessment Zone (Section 4) - Always visible but sliders disabled until life area selected
+        '<div class="card">' +
+            '<h2 style="margin-bottom: 12px;">' + 
+                (state.activeLifeArea ? '🎯 Assessing: ' + state.lifeAreas[state.activeLifeArea].label : 'Select a Life Area to Begin Assessment') +
+            '</h2>' +
+            '<div class="assessment-container">' +
+                '<div style="margin-bottom: 8px;">' +
+                    '<label style="display: block; font-weight: 600; margin-bottom: 4px; font-size: 14px;">What specific option are you considering?</label>' +
+                    '<input type="text" ' +
+                           'value="' + state.activeOptionText + '" ' +
+                           'oninput="updateOptionText(this.value);" ' +
+                           (state.activeLifeArea ? '' : 'disabled ') +
+                           'placeholder="' + (state.activeLifeArea ? 'e.g., Accept Isaac\'s excavation project or Install new kitchen faucet' : 'Select a life area first') + '">' +
                 '</div>' +
-            '</div>'
-        : '') +
+                
+                // Opportunity slider
+                '<div class="slider-group">' +
+                    '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
+                        '<div class="slider-label" style="color: #4caf50; white-space: nowrap; font-size: 13px;">💚 Opportunity</div>' +
+                        '<div class="slider-value" style="color: #4caf50; font-weight: bold; min-width: 24px; text-align: center;">' + state.opportunity.value + '</div>' +
+                        '<div style="flex: 1; max-width: 90%;">' +
+                            '<input type="range" min="0" max="10" value="' + state.opportunity.value + '" ' +
+                                   'oninput="updateAssessment(\'opportunity\', this.value)" ' +
+                                   (state.activeLifeArea ? '' : 'disabled ') +
+                                   'style="background: ' + getAssessmentGradient('opportunity') + '; ' + (state.activeLifeArea ? '' : 'opacity: 0.5; cursor: not-allowed;') + '">' +
+                        '</div>' +
+                        '<button class="btn" onclick="toggleTextArea(\'opportunity\')" ' +
+                                (state.activeLifeArea ? '' : 'disabled ') +
+                                'style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap; ' +
+                                (state.activeLifeArea ? '' : 'opacity: 0.5; cursor: not-allowed;') + '">text</button>' +
+                    '</div>' +
+                    '<textarea id="opportunityText" style="display: none;" ' +
+                           'placeholder="Why does this feel like an opportunity? What positive energy or potential does it have?" ' +
+                           (state.activeLifeArea ? '' : 'disabled ') +
+                           'oninput="updateAssessmentText(\'opportunity\', this.value)">' + state.opportunity.why + '</textarea>' +
+                '</div>' +
+                
+                // Stressor slider
+                '<div class="slider-group">' +
+                    '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
+                        '<div class="slider-label" style="color: #f44336; white-space: nowrap; font-size: 13px;">⚠️ Stressor</div>' +
+                        '<div class="slider-value" style="color: #f44336; font-weight: bold; min-width: 24px; text-align: center;">' + state.stressor.value + '</div>' +
+                        '<div style="flex: 1; max-width: 90%;">' +
+                            '<input type="range" min="0" max="10" value="' + state.stressor.value + '" ' +
+                                   'oninput="updateAssessment(\'stressor\', this.value)" ' +
+                                   (state.activeLifeArea ? '' : 'disabled ') +
+                                   'style="background: ' + getAssessmentGradient('stressor') + '; ' + (state.activeLifeArea ? '' : 'opacity: 0.5; cursor: not-allowed;') + '">' +
+                        '</div>' +
+                        '<button class="btn" onclick="toggleTextArea(\'stressor\')" ' +
+                                (state.activeLifeArea ? '' : 'disabled ') +
+                                'style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap; ' +
+                                (state.activeLifeArea ? '' : 'opacity: 0.5; cursor: not-allowed;') + '">text</button>' +
+                    '</div>' +
+                    '<textarea id="stressorText" style="display: none;" ' +
+                           'placeholder="Why does this feel stressful? What threatens or overwhelms you?" ' +
+                           (state.activeLifeArea ? '' : 'disabled ') +
+                           'oninput="updateAssessmentText(\'stressor\', this.value)">' + state.stressor.why + '</textarea>' +
+                '</div>' +
+                
+                // Stabilizer slider
+                '<div class="slider-group">' +
+                    '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
+                        '<div class="slider-label" style="color: #1976d2; white-space: nowrap; font-size: 13px;">🛡️ Stabilizer</div>' +
+                        '<div class="slider-value" style="color: #1976d2; font-weight: bold; min-width: 24px; text-align: center;">' + state.stabilizer.value + '</div>' +
+                        '<div style="flex: 1; max-width: 90%;">' +
+                            '<input type="range" min="0" max="10" value="' + state.stabilizer.value + '" ' +
+                                   'oninput="updateAssessment(\'stabilizer\', this.value)" ' +
+                                   (state.activeLifeArea ? '' : 'disabled ') +
+                                   'style="background: ' + getAssessmentGradient('stabilizer') + '; ' + (state.activeLifeArea ? '' : 'opacity: 0.5; cursor: not-allowed;') + '">' +
+                        '</div>' +
+                        '<button class="btn" onclick="toggleTextArea(\'stabilizer\')" ' +
+                                (state.activeLifeArea ? '' : 'disabled ') +
+                                'style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap; ' +
+                                (state.activeLifeArea ? '' : 'opacity: 0.5; cursor: not-allowed;') + '">text</button>' +
+                    '</div>' +
+                    '<textarea id="stabilizerText" style="display: none;" ' +
+                           'placeholder="Why does this feel stabilizing? What grounds, supports, or regulates you?" ' +
+                           (state.activeLifeArea ? '' : 'disabled ') +
+                           'oninput="updateAssessmentText(\'stabilizer\', this.value)">' + state.stabilizer.why + '</textarea>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
 
         // Visualization
         '<div class="card">' +
