@@ -470,17 +470,21 @@ function render() {
                     
                     // Opportunity slider
                     '<div class="slider-group">' +
-                        '<div class="slider-header">' +
-                            '<span class="slider-label" style="color: #4caf50;">💚 Opportunity</span>' +
-                            '<span class="slider-value" style="color: #4caf50;">' + state.opportunity.value + '</span>' +
+                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">' +
+                            '<div style="width: 25%; min-width: 120px;">' +
+                                '<div class="slider-label" style="color: #4caf50; margin-bottom: 2px;">💚 Opportunity</div>' +
+                                '<div class="slider-value" style="color: #4caf50;">' + state.opportunity.value + '</div>' +
+                            '</div>' +
+                            '<div style="flex: 1;">' +
+                                '<div class="slider-labels">' +
+                                    '<span>0 None</span>' +
+                                    '<span>10 Very High</span>' +
+                                '</div>' +
+                                '<input type="range" min="0" max="10" value="' + state.opportunity.value + '" ' +
+                                       'oninput="updateAssessment(\'opportunity\', this.value)" ' +
+                                       'style="background: ' + getAssessmentGradient('opportunity') + ';">' +
+                            '</div>' +
                         '</div>' +
-                        '<div class="slider-labels">' +
-                            '<span>0 None</span>' +
-                            '<span>10 Very High</span>' +
-                        '</div>' +
-                        '<input type="range" min="0" max="10" value="' + state.opportunity.value + '" ' +
-                               'oninput="updateAssessment(\'opportunity\', this.value)" ' +
-                               'style="background: ' + getAssessmentGradient('opportunity') + ';">' +
                         '<textarea ' +
                                'placeholder="Why does this feel like an opportunity? What positive energy or potential does it have?" ' +
                                'oninput="updateAssessmentText(\'opportunity\', this.value)">' + state.opportunity.why + '</textarea>' +
@@ -488,17 +492,21 @@ function render() {
                     
                     // Stressor slider
                     '<div class="slider-group">' +
-                        '<div class="slider-header">' +
-                            '<span class="slider-label" style="color: #f44336;">⚠️ Stressor</span>' +
-                            '<span class="slider-value" style="color: #f44336;">' + state.stressor.value + '</span>' +
+                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">' +
+                            '<div style="width: 25%; min-width: 120px;">' +
+                                '<div class="slider-label" style="color: #f44336; margin-bottom: 2px;">⚠️ Stressor</div>' +
+                                '<div class="slider-value" style="color: #f44336;">' + state.stressor.value + '</div>' +
+                            '</div>' +
+                            '<div style="flex: 1;">' +
+                                '<div class="slider-labels">' +
+                                    '<span>0 None</span>' +
+                                    '<span>10 Very High</span>' +
+                                '</div>' +
+                                '<input type="range" min="0" max="10" value="' + state.stressor.value + '" ' +
+                                       'oninput="updateAssessment(\'stressor\', this.value)" ' +
+                                       'style="background: ' + getAssessmentGradient('stressor') + ';">' +
+                            '</div>' +
                         '</div>' +
-                        '<div class="slider-labels">' +
-                            '<span>0 None</span>' +
-                            '<span>10 Very High</span>' +
-                        '</div>' +
-                        '<input type="range" min="0" max="10" value="' + state.stressor.value + '" ' +
-                               'oninput="updateAssessment(\'stressor\', this.value)" ' +
-                               'style="background: ' + getAssessmentGradient('stressor') + ';">' +
                         '<textarea ' +
                                'placeholder="Why does this feel stressful? What threatens or overwhelms you?" ' +
                                'oninput="updateAssessmentText(\'stressor\', this.value)">' + state.stressor.why + '</textarea>' +
@@ -506,17 +514,21 @@ function render() {
                     
                     // Stabilizer slider
                     '<div class="slider-group">' +
-                        '<div class="slider-header">' +
-                            '<span class="slider-label" style="color: #1976d2;">🛡️ Stabilizer</span>' +
-                            '<span class="slider-value" style="color: #1976d2;">' + state.stabilizer.value + '</span>' +
+                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">' +
+                            '<div style="width: 25%; min-width: 120px;">' +
+                                '<div class="slider-label" style="color: #1976d2; margin-bottom: 2px;">🛡️ Stabilizer</div>' +
+                                '<div class="slider-value" style="color: #1976d2;">' + state.stabilizer.value + '</div>' +
+                            '</div>' +
+                            '<div style="flex: 1;">' +
+                                '<div class="slider-labels">' +
+                                    '<span>0 None</span>' +
+                                    '<span>10 Very High</span>' +
+                                '</div>' +
+                                '<input type="range" min="0" max="10" value="' + state.stabilizer.value + '" ' +
+                                       'oninput="updateAssessment(\'stabilizer\', this.value)" ' +
+                                       'style="background: ' + getAssessmentGradient('stabilizer') + ';">' +
+                            '</div>' +
                         '</div>' +
-                        '<div class="slider-labels">' +
-                            '<span>0 None</span>' +
-                            '<span>10 Very High</span>' +
-                        '</div>' +
-                        '<input type="range" min="0" max="10" value="' + state.stabilizer.value + '" ' +
-                               'oninput="updateAssessment(\'stabilizer\', this.value)" ' +
-                               'style="background: ' + getAssessmentGradient('stabilizer') + ';">' +
                         '<textarea ' +
                                'placeholder="Why does this feel stabilizing? What grounds, supports, or regulates you?" ' +
                                'oninput="updateAssessmentText(\'stabilizer\', this.value)">' + state.stabilizer.why + '</textarea>' +
