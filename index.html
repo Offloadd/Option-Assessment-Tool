@@ -1,13 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Offload - Option Assessment</title>
-   <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offload - Daily Check-In</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   <div class="container" id="app">Loading...</div>
-   <script src="app.js"></script>
+    <div id="authContainer">
+        <div class="auth-card">
+            <h1>Offload</h1>
+            <p>A simple daily check-in companion.</p>
+            <input type="email" id="emailInput" placeholder="Enter your email" />
+            <button onclick="handleAuth()" class="btn btn-primary">Continue with Email</button>
+            <div id="authMessage"></div>
+        </div>
+    </div>
+
+    <div id="app" style="display: none;">
+        <div class="container">
+            <!-- Header -->
+            <div class="card header">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <h1>Offload</h1>
+                        <p style="margin: 0; color: #6b7280; font-size: 14px;">Daily Check-In</p>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <span id="userEmail" style="font-size: 13px; color: #6b7280;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content will be rendered here -->
+            <div id="mainContent"></div>
+
+            <!-- Logout -->
+            <div class="card" style="text-align: center; padding: 12px; border: 1px solid #dc2626;">
+                <button onclick="handleLogout()" class="btn" style="width: 100%; padding: 10px 20px; background: #dc2626; color: white;">🚪 Logout</button>
+            </div>
+
+            <!-- Entries Section -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h2 style="margin: 0;">Saved Check-Ins (<span id="entryCount">0</span>)</h2>
+                    <button onclick="exportEntries()" class="btn" style="background: #3b82f6; color: white; padding: 8px 16px;">📋 Copy Last 20 (CSV)</button>
+                </div>
+                <div id="entriesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwacked3dd2F2z4r-l0fa82fakekey",
+            authDomain: "offload-tool.firebaseapp.com",
+            projectId: "offload-tool",
+            storageBucket: "offload-tool.firebasestorage.app",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:fakeid"
+        };
+
+        window.firebaseApp = initializeApp(firebaseConfig);
+        window.auth = getAuth(window.firebaseApp);
+        window.db = getFirestore(window.firebaseApp);
+    </script>
+
+    <!-- App Scripts -->
+    <script src="state.js"></script>
+    <script src="auth.js"></script>
+    <script src="firestore.js"></script>
+    <script src="calculations.js"></script>
+    <script src="visualization.js"></script>
+    <script src="render.js"></script>
+    <script src="sliders.js"></script>
+    <script src="entries.js"></script>
 </body>
 </html>
