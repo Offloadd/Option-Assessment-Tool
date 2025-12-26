@@ -67,17 +67,17 @@ function updateVisualization() {
         <!-- Percentage labels anchored to right of legend -->
         <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
             <span>Stressors - ${state.stressorPercent}%</span>
-            ${state.stressorNotes ? '<span style="font-size: 10px; font-weight: normal;">' + state.stressorNotes + '</span>' : ''}
+            ${state.stressorNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.stressorNotes + '</span>' : ''}
         </div>
         
         <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
             <span>Stabilizers - ${state.stabilizerPercent}%</span>
-            ${state.stabilizerNotes ? '<span style="font-size: 10px; font-weight: normal;">' + state.stabilizerNotes + '</span>' : ''}
+            ${state.stabilizerNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.stabilizerNotes + '</span>' : ''}
         </div>
         
         <div style="position: absolute; bottom: ${opportunityHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%); display: flex; align-items: center; gap: 12px;">
             <span>Opportunity - ${state.opportunityPercent}%</span>
-            ${state.opportunityNotes ? '<span style="font-size: 10px; font-weight: normal;">' + state.opportunityNotes + '</span>' : ''}
+            ${state.opportunityNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.opportunityNotes + '</span>' : ''}
         </div>
     `;
 }
