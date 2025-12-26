@@ -7,7 +7,7 @@ window.saveToFirestore = async function(entry) {
     
     try {
         const userDoc = doc(window.db, 'users', state.user.uid);
-        const entriesCollection = collection(userDoc, 'entries');
+        const entriesCollection = collection(userDoc, 'checkins'); // Changed from 'entries'
         const entryDoc = doc(entriesCollection, entry.timestamp);
         
         await setDoc(entryDoc, entry);
@@ -31,7 +31,7 @@ window.loadFromFirestore = async function() {
         }
         
         // Load entries
-        const entriesCollection = collection(userDocRef, 'entries');
+        const entriesCollection = collection(userDocRef, 'checkins'); // Changed from 'entries'
         const q = query(entriesCollection, orderBy('timestamp', 'desc'), limit(100));
         const querySnapshot = await getDocs(q);
         
@@ -63,7 +63,7 @@ window.deleteEntryFromFirestore = async function(timestamp) {
     
     try {
         const userDoc = doc(window.db, 'users', state.user.uid);
-        const entryDoc = doc(collection(userDoc, 'entries'), timestamp);
+        const entryDoc = doc(collection(userDoc, 'checkins'), timestamp); // Changed from 'entries'
         await deleteDoc(entryDoc);
         console.log('Entry deleted from Firestore');
     } catch (error) {
