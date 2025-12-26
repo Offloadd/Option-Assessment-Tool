@@ -5,25 +5,35 @@ function updateVisualization() {
     if (!vizDiv) return;
     
     const height = 274;
-    const minZoneHeight = 25; // Minimum visible height for each zone (reduced from 30)
+    const minZoneHeight = 25; // Minimum visible height for each zone
     
     // Calculate raw heights based on percentages
     let stressHeight = (state.stressorPercent / 100) * height;
     let regulatedHeight = (state.stabilizerPercent / 100) * height;
     let opportunityHeight = (state.opportunityPercent / 100) * height;
     
-    // Apply minimums - ensure each zone is always visible
-    stressHeight = Math.max(stressHeight, minZoneHeight);
-    regulatedHeight = Math.max(regulatedHeight, minZoneHeight);
-    opportunityHeight = Math.max(opportunityHeight, minZoneHeight);
+    // Enforce minimums by capping the larger zones if needed
+    const totalMinimum = minZoneHeight * 3; // 75px total minimum
     
-    // Scale down proportionally to fit exactly in available height
-    const totalHeight = stressHeight + regulatedHeight + opportunityHeight;
-    if (totalHeight > height) {
-        const scale = height / totalHeight;
-        stressHeight = Math.floor(stressHeight * scale);
-        regulatedHeight = Math.floor(regulatedHeight * scale);
-        opportunityHeight = height - stressHeight - regulatedHeight; // Ensure exact fit
+    if (stressHeight + regulatedHeight + opportunityHeight > height) {
+        // If all zones exceed available space, scale proportionally
+        const scale = height / (stressHeight + regulatedHeight + opportunityHeight);
+        stressHeight *= scale;
+        regulatedHeight *= scale;
+        opportunityHeight *= scale;
+    }
+    
+    // Now enforce minimums and cap others accordingly
+    const availableForStress = height - (minZoneHeight * 2); // Reserve space for other two zones
+    const availableForRegulated = height - minZoneHeight - Math.min(stressHeight, availableForStress);
+    
+    stressHeight = Math.min(stressHeight, availableForStress);
+    regulatedHeight = Math.min(regulatedHeight, availableForRegulated);
+    opportunityHeight = Math.max(height - stressHeight - regulatedHeight, minZoneHeight);
+    
+    // Final adjustment to ensure exact fit
+    if (stressHeight + regulatedHeight + opportunityHeight !== height) {
+        opportunityHeight = height - stressHeight - regulatedHeight;
     }
     
     // Dynamic stress gradient: low stress = YELLOW, high stress = red
