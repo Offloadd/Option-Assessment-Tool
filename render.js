@@ -5,7 +5,7 @@ function render() {
     if (!container) return;
     
     const html = `
-        <div class="card" style="margin-bottom: 0; padding-bottom: 0;">
+        <div class="card" style="margin-bottom: 0; padding-bottom: 0; padding-top: 2px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <h2 style="margin: 0; font-size: 18px;">Offload - A window of tolerance check in tool</h2>
                 <span style="font-size: 12px; color: #6b7280;">${state.user ? state.user.email : ''}</span>
