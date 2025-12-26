@@ -2,7 +2,7 @@
 
 import { collection, doc, setDoc, getDoc, getDocs, query, orderBy, limit, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-async function saveToFirestore(entry) {
+window.saveToFirestore = async function(entry) {
     if (!state.user) return;
     
     try {
@@ -17,7 +17,7 @@ async function saveToFirestore(entry) {
     }
 }
 
-async function loadFromFirestore() {
+window.loadFromFirestore = async function() {
     if (!state.user) return;
     
     try {
@@ -46,7 +46,7 @@ async function loadFromFirestore() {
     }
 }
 
-async function saveLifeAreasToFirestore(lifeAreas) {
+window.saveLifeAreasToFirestore = async function(lifeAreas) {
     if (!state.user) return;
     
     try {
@@ -58,7 +58,7 @@ async function saveLifeAreasToFirestore(lifeAreas) {
     }
 }
 
-async function deleteEntryFromFirestore(timestamp) {
+window.deleteEntryFromFirestore = async function(timestamp) {
     if (!state.user) return;
     
     try {
