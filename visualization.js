@@ -47,7 +47,7 @@ function updateVisualization() {
     
     vizDiv.innerHTML = `
         <div class="color-legend">
-            <div style="padding: 8px 4px; color: black; font-size: 9px; font-weight: bold; line-height: 1.1; text-align: center; z-index: 12; display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
+            <div style="padding: 8px 4px; color: black; font-size: 9.5px; font-weight: bold; line-height: 1.1; text-align: center; z-index: 12; display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
                 <div>Hopelessness<br>Powerlessness<br>Overwhelmed<br>Anger/Resentful<br>Easily Agitated</div>
                 <div>Drivenness<br>Worry/Anxiety<br>Hypervigilance<br>On Edge<br>Fear of Failure</div>
                 <div>Rest is Forced<br>Deeper Sleep<br>Grounded<br>Calm/Regulated<br>Recovering</div>
@@ -65,16 +65,19 @@ function updateVisualization() {
         <div style="position: absolute; bottom: 0; left: 0; right: 0; height: ${opportunityHeight}px; background: ${opportunityGradient}; border-radius: 0 0 8px 8px; transition: all 0.3s ease;"></div>
         
         <!-- Percentage labels anchored to right of legend -->
-        <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
-            Stressors - ${state.stressorPercent}%
+        <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
+            <span>Stressors - ${state.stressorPercent}%</span>
+            ${state.topicLabel ? '<span style="font-size: 11px; font-weight: normal;">' + state.topicLabel + '</span>' : ''}
         </div>
         
-        <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
-            Stabilizers - ${state.stabilizerPercent}%
+        <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
+            <span>Stabilizers - ${state.stabilizerPercent}%</span>
+            ${state.topicLabel ? '<span style="font-size: 11px; font-weight: normal;">' + state.topicLabel + '</span>' : ''}
         </div>
         
-        <div style="position: absolute; bottom: ${opportunityHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%);">
-            Opportunity - ${state.opportunityPercent}%
+        <div style="position: absolute; bottom: ${opportunityHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%); display: flex; align-items: center; gap: 12px;">
+            <span>Opportunity - ${state.opportunityPercent}%</span>
+            ${state.topicLabel ? '<span style="font-size: 11px; font-weight: normal;">' + state.topicLabel + '</span>' : ''}
         </div>
     `;
 }
