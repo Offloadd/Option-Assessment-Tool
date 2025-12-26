@@ -51,11 +51,11 @@ function updateVisualization() {
         
         <!-- Percentage labels -->
         <div style="position: absolute; top: ${stressHeight / 2}px; right: 10px; color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
-            Stress - ${state.stressorPercent}%
+            Stressors - ${state.stressorPercent}%
         </div>
         
         <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; right: 10px; color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
-            Regulated Processing<br>Capacity - ${state.stabilizerPercent}%
+            Stabilized<br>Processing<br>Capacity - ${state.stabilizerPercent}%
         </div>
         
         <div style="position: absolute; bottom: ${opportunityHeight / 2}px; right: 10px; color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%);">
