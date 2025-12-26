@@ -39,16 +39,6 @@ function updateVisualization() {
     // Final adjustment to ensure EXACT fit - opportunity takes all remaining space
     opportunityHeight = height - stressHeight - regulatedHeight;
     
-    // DEBUG: Show calculated values
-    console.log('DEBUG Heights:', {
-        containerHeight: height,
-        stressHeight,
-        regulatedHeight,
-        opportunityHeight,
-        total: stressHeight + regulatedHeight + opportunityHeight,
-        minZoneHeight
-    });
-    
     // Dynamic stress gradient: low stress = YELLOW, high stress = red
     // At 10-40% -> YELLOW, at 40-60% -> orange, at 60%+ -> red
     const stressGradient = state.stressorPercent <= 40 
@@ -69,11 +59,6 @@ function updateVisualization() {
         : 'linear-gradient(to top, #7FFF00 0%, #ADFF2F 50%, #FFFF00 100%)'; // High opportunity: chartreuse to yellow
     
     vizDiv.innerHTML = `
-        <!-- DEBUG INFO -->
-        <div style="position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.8); color: white; padding: 5px; font-size: 10px; border-radius: 3px; z-index: 1000; font-family: monospace;">
-            H:${height.toFixed(0)} S:${stressHeight.toFixed(1)} R:${regulatedHeight.toFixed(1)} O:${opportunityHeight.toFixed(1)} Tot:${(stressHeight+regulatedHeight+opportunityHeight).toFixed(1)}
-        </div>
-        
         <div class="color-legend">
             <div style="padding: 8px 4px; color: black; font-size: 9.5px; font-weight: bold; line-height: 1.1; text-align: center; z-index: 12; display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
                 <div>Hopelessness<br>Powerlessness<br>Overwhelmed<br>Anger/Resentful<br>Easily Agitated</div>
