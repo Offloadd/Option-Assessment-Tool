@@ -4,6 +4,57 @@
     box-sizing: border-box; 
 }
 
+.modal-overlay {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999 !important;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex !important;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close {
+    position: fixed !important;
+    top: 12px;
+    right: 12px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    z-index: 10000;
+}
+
+.modal-close:hover {
+    background: #e5e7eb;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: #f9fafb;
@@ -13,6 +64,13 @@ body {
 .container {
     max-width: 900px;
     margin: 0 auto;
+}
+
+.sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .card {
@@ -27,7 +85,7 @@ body {
     background: white;
     border-radius: 6px;
     padding: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: all 0.2s;
@@ -38,9 +96,26 @@ body {
 }
 
 .section-card.expanded {
-    padding: 18px;
+    grid-column: 1 / -1;
+    padding: 8px;
     cursor: default;
+    margin-bottom: 12px;
 }
+
+/* Allow side-by-side layout for options mode */
+.section-card > div > div[style*="display: flex; gap: 12px"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+}
+
+/* Prevent comparison list from wrapping below */
+.section-card > div > div[style*="display: flex; gap: 12px"] > div {
+    flex-shrink: 0 !important;
+}
+
+.section-green { border-left: 4px solid #16a34a; }
+.section-orange { border-left: 4px solid #f97316; }
 
 h1 {
     font-size: 22px;
@@ -54,6 +129,18 @@ h2 {
     color: #111827;
 }
 
+.subtitle {
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .section-title {
     font-size: 14px;
     font-weight: 600;
@@ -64,32 +151,48 @@ h2 {
     font-size: 16px;
 }
 
-.btn {
-    padding: 8px 14px;
+.section-subtitle {
+    font-size: 11px;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 2px;
+}
+
+.expand-btn {
+    padding: 6px 12px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
     font-weight: 600;
+    font-size: 12px;
+    color: white;
+    transition: all 0.2s;
+    white-space: nowrap;
 }
 
-textarea {
-    width: 100%;
-    padding: 4px 6px;
-    border: 1px solid #d1d5db;
+.slider-container {
+    background: #f9fafb;
+    padding: 6px;
     border-radius: 4px;
-    font-size: 13px;
-    font-family: inherit;
-    height: 18px;
-    resize: none;
-    overflow-y: auto;
+    margin-bottom: 5px;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #d1d5db;
-    border-radius: 4px;
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.slider-label {
+    font-weight: 600;
+    color: #111827;
     font-size: 14px;
+}
+
+.slider-value {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 input[type="range"] {
@@ -123,69 +226,47 @@ input[type="range"]::-moz-range-thumb {
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.life-area-item {
-    padding: 8px 12px;
-    margin: 4px 0;
-    background: #f9fafb;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    border-left: 3px solid #3b82f6;
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #6b7280;
+    margin-bottom: 2px;
 }
 
-.life-area-item:hover {
-    background: #f3f4f6;
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    min-height: 50px;
+    resize: vertical;
+}
+
+.input-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-top: 6px;
+    margin-bottom: 3px;
+    display: block;
 }
 
 .life-area-item.active {
-    background: #dbeafe;
-    border-left-color: #1d4ed8;
+    background: #dbeafe !important;
+    border-left-color: #1d4ed8 !important;
 }
 
-.life-areas-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.life-area-row {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.assessment-container {
-    background: #f0f9ff;
-    border: 2px solid #3b82f6;
-    border-radius: 8px;
-    padding: 10px;
-    margin-top: 12px;
-}
-
-.slider-group {
-    margin-bottom: 5px;
-}
-
-.slider-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.slider-label {
-    font-weight: 600;
-    color: #111827;
-    font-size: 13px;
-}
-
-.slider-value {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Visualization styles */
 .visualization {
     position: relative;
     width: 100%;
@@ -194,6 +275,7 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 5px;
     overflow: hidden;
     background: #44ff44;
+    transition: background-color 0.3s ease-out;
 }
 
 .color-legend {
@@ -201,11 +283,13 @@ input[type="range"]::-moz-range-thumb {
     left: 10px;
     top: 10px;
     bottom: 10px;
-    width: 80px;
+    width: 90px;
     background: linear-gradient(to bottom,
         #ff4444 0%,
-        #ffaa44 33%,
-        #4488ff 66%,
+        #ff4444 5%,
+        #ffaa44 30%,
+        #ffeb3b 40%,
+        #4488ff 60%,
         #44ff44 100%);
     border: 2px solid #333;
     border-radius: 5px;
@@ -244,7 +328,7 @@ input[type="range"]::-moz-range-thumb {
     flex-direction: column;
     justify-content: flex-start;
     z-index: 5;
-    transform: translateX(-60px);
+    transform: translateX(-40px);
 }
 
 .gate-bottom {
@@ -257,7 +341,7 @@ input[type="range"]::-moz-range-thumb {
     flex-direction: column;
     justify-content: flex-end;
     z-index: 5;
-    transform: translateX(-60px);
+    transform: translateX(-40px);
 }
 
 .gate-shape-top, .gate-shape-bottom {
@@ -365,4 +449,256 @@ input[type="range"]::-moz-range-thumb {
     transform: translate(-50%, -50%);
     white-space: normal;
     line-height: 1.2;
+}
+
+/* Auth Styles */
+.auth-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.auth-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #111827;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.auth-btn:hover {
+    background: #2563eb;
+}
+
+.auth-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.auth-message {
+    color: #dc2626;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 8px;
+    background: #fee2e2;
+    border-radius: 4px;
+    display: none;
+}
+
+.auth-message.show {
+    display: block;
+}
+
+.auth-message.success {
+    color: #065f46;
+    background: #d1fae5;
+}
+
+.user-badge {
+    display: none !important;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Make container full width on mobile */
+    .container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 4px !important;
+    }
+    
+    /* FORCE VERTICAL STACKING on mobile - sliders full width */
+    div[style*="display: flex"][style*="align-items: flex-end"] {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    /* Make slider area full width on mobile */
+    div[style*="flex: 0 0 80%"] {
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    /* Make options box wider and limit height on mobile */
+    div[style*="flex: 0 0 20%"] {
+        flex: 0 0 auto !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-height: 150px !important;
+        min-height: 0 !important;
+    }
+    
+    /* Force the blue bordered inner boxes to full width too */
+    div[style*="border: 2px solid #3b82f6"],
+    div[style*="border: 2px solid #f97316"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Make the inner blue box also constrained */
+    div[style*="flex: 0 0 20%"] > div {
+        max-height: 150px !important;
+        min-height: 0 !important;
+    }
+    
+    /* Limit scrollable area height in options box */
+    div[style*="flex: 0 0 20%"] div[style*="flex: 1"] {
+        max-height: 80px !important;
+        min-height: 0 !important;
+    }
+    
+    /* Stack topic label and life area dropdown vertically on mobile */
+    div[style*="flex: 0 0 30%"] {
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+    }
+    
+    body {
+        padding: 8px;
+    }
+    
+    .sections-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
+        padding: 12px;
+    }
+    
+    h1 {
+        font-size: 18px;
+    }
+    
+    h2 {
+        font-size: 16px;
+    }
+    
+    .subtitle {
+        font-size: 12px;
+    }
+    
+    /* Make header stack on mobile */
+    .card.header > div {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+    
+    /* Make buttons in save section stack */
+    .card [style*="display: flex"][style*="gap: 8px"][style*="flex-wrap: wrap"] {
+        flex-direction: column !important;
+    }
+    
+    /* Make sure text inputs don't overflow */
+    input[type="text"], 
+    textarea, 
+    select {
+        max-width: 100%;
+        font-size: 16px !important; /* Prevents zoom on iOS */
+    }
+    
+    /* Adjust slider containers for mobile */
+    .slider-group {
+        margin-bottom: 8px;
+    }
+    
+    /* Make the visualization taller on mobile for better visibility */
+    .visualization {
+        height: 250px;
+        min-height: 250px;
+    }
+    
+    /* Color legend narrower on mobile */
+    .color-legend {
+        width: 70px;
+        left: 5px;
+        top: 5px;
+        bottom: 5px;
+    }
+    
+    .color-legend div {
+        font-size: 7px !important;
+        padding: 4px 2px !important;
+    }
+    
+    /* Modal adjustments */
+    .modal-content {
+        padding: 16px;
+        max-width: 95vw;
+    }
+    
+    /* Ensure entry cards are readable */
+    .card [style*="display: flex"][style*="justify-content: space-between"] button {
+        min-width: auto;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
+    /* Mobile fixes for assessment zone */
+    .card select {
+        max-width: 100% !important;
+        min-width: 100px !important;
+    }
+    
+    /* Assessment zone should never exceed screen width */
+    .section-card > div > div[style*="border: 2px solid"] {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* EXCEPT when it's in the side-by-side flex layout */
+    .section-card > div > div[style*="display: flex; gap: 12px"] > div > div[style*="border: 2px solid"] {
+        max-width: none !important;
+    }
+    
+    /* Stack assessment header on mobile */
+    .section-card h3 {
+        font-size: 14px !important;
+        word-break: break-word;
+    }
+    
+    /* Fix slider groups on mobile */
+    .slider-group > div {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+    
+    .slider-group {
+        max-width: 100%;
+    }
+    
+    /* Reduce padding on mobile */
+    .section-card.expanded {
+        padding: 12px !important;
+    }
 }
