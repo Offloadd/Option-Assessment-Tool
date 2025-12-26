@@ -5,21 +5,21 @@ function render() {
     if (!container) return;
     
     const html = `
-        <div class="card" style="margin-bottom: 6px;">
+        <div class="card" style="margin-bottom: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <h2 style="margin: 0; font-size: 18px;">Offload - A window of tolerance check in tool</h2>
                 <span style="font-size: 12px; color: #6b7280;">${state.user ? state.user.email : ''}</span>
             </div>
             
-            <div style="background: #f0f9ff; border: 2px solid #3b82f6; border-radius: 8px; padding: 10px;">
-                ${state.saveError ? '<div style="background: #fee2e2; color: #991b1b; padding: 5px 8px; border-radius: 3px; margin-bottom: 6px; font-size: 12px; border: 1px solid #fecaca;">' + state.saveError + '</div>' : ''}
+            <div style="background: #f0f9ff; border: 2px solid #3b82f6; border-radius: 8px; padding: 0;">
+                ${state.saveError ? '<div style="background: #fee2e2; color: #991b1b; padding: 5px 8px; border-radius: 3px; margin: 6px 6px 6px 6px; font-size: 12px; border: 1px solid #fecaca;">' + state.saveError + '</div>' : ''}
                 
-                <div style="margin-bottom: 6px;">
+                <div style="margin: 6px 6px 6px 6px;">
                     <label style="display: block; font-weight: 600; margin-bottom: 4px; font-size: 15px;">How are you feeling today?</label>
                 </div>
                 
                 <!-- ALL 3 INPUTS IN ONE ROW -->
-                <div style="margin-bottom: 6px; display: flex; gap: 6px;">
+                <div style="margin: 0 6px 6px 6px; display: flex; gap: 6px;">
                     <div style="flex: 1;">
                         <label style="display: block; font-weight: 600; margin-bottom: 2px; font-size: 10px;">TOPIC LABEL</label>
                         <input type="text" value="${state.topicLabel}" oninput="state.topicLabel = this.value;" placeholder="e.g., Morning" style="width: 100%; padding: 5px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 12px;">
@@ -45,7 +45,7 @@ function render() {
                     </div>
                 </div>
                 
-                <div style="border-top: 1px solid #e5e7eb; padding-top: 4px; display: flex; gap: 6px;">
+                <div style="border-top: 1px solid #e5e7eb; padding-top: 4px; margin: 0 6px 6px 6px; display: flex; gap: 6px;">
                     <!-- Sliders section -->
                     <div style="flex: 1;">
                         <div style="margin-bottom: 4px;">
