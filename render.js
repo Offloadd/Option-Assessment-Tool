@@ -75,7 +75,6 @@ function render() {
                             </div>
                             <textarea placeholder="Notes" oninput="updateNotes('opportunity', this.value)" style="width: 100%; padding: 1px 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 9.5px; font-family: inherit; min-height: 12px; resize: vertical;">${state.opportunityNotes}</textarea>
                         </div>
-                        </div>
                     </div>
                     
                     <!-- Vertical buttons on right -->
