@@ -50,7 +50,7 @@ function render() {
                     <div style="flex: 1;">
                         <div style="margin-bottom: 4px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
-                                <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stress</div>
+                                <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stressors</div>
                                 <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorPercent}%</div>
                                 <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stressorPercent}" oninput="updatePercent('stressor', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #FFFF00, #FF9900, #DC143C);">
                             </div>
@@ -59,7 +59,7 @@ function render() {
                         
                         <div style="margin-bottom: 4px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
-                                <div style="color: #1976d2; font-size: 12px; font-weight: 600; min-width: 75px;">🛡️ Regulated</div>
+                                <div style="color: #1976d2; font-size: 12px; font-weight: 600; min-width: 75px;">🛡️ Stabilizers</div>
                                 <div style="color: #1976d2; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stabilizerPercent}%</div>
                                 <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stabilizerPercent}" oninput="updatePercent('stabilizer', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #87CEEB, #4682B4, #1E90FF);">
                             </div>
