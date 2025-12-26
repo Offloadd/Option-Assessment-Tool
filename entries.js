@@ -48,14 +48,14 @@ function renderEntry(entry) {
             
             <!-- Percentages -->
             <div style="display: flex; gap: 12px; margin-bottom: 8px; font-size: 13px;">
-                <div style="color: #f44336;">⚠️ Stress: <strong>${entry.stressorPercent}%</strong></div>
-                <div style="color: #1976d2;">🛡️ Regulated: <strong>${entry.stabilizerPercent}%</strong></div>
+                <div style="color: #f44336;">⚠️ Stressors: <strong>${entry.stressorPercent}%</strong></div>
+                <div style="color: #1976d2;">🛡️ Stabilizers: <strong>${entry.stabilizerPercent}%</strong></div>
                 <div style="color: #4caf50;">💚 Opportunity: <strong>${entry.opportunityPercent}%</strong></div>
             </div>
             
             <!-- Notes -->
-            ${entry.stressorNotes ? '<div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong style="color: #f44336;">Stress:</strong> ' + entry.stressorNotes + '</div>' : ''}
-            ${entry.stabilizerNotes ? '<div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong style="color: #1976d2;">Regulated:</strong> ' + entry.stabilizerNotes + '</div>' : ''}
+            ${entry.stressorNotes ? '<div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong style="color: #f44336;">Stressors:</strong> ' + entry.stressorNotes + '</div>' : ''}
+            ${entry.stabilizerNotes ? '<div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong style="color: #1976d2;">Stabilizers:</strong> ' + entry.stabilizerNotes + '</div>' : ''}
             ${entry.opportunityNotes ? '<div style="font-size: 12px; color: #374151;"><strong style="color: #4caf50;">Opportunity:</strong> ' + entry.opportunityNotes + '</div>' : ''}
         </div>
     `;
@@ -78,7 +78,7 @@ function exportEntries() {
         return;
     }
     
-    let csv = 'Timestamp,Topic,Life Area,Hijacking,Stress %,Regulated %,Opportunity %,Stress Notes,Regulated Notes,Opportunity Notes\n';
+    let csv = 'Timestamp,Topic,Life Area,Hijacking,Stressors %,Stabilizers %,Opportunity %,Stressors Notes,Stabilizers Notes,Opportunity Notes\n';
     
     last20.forEach(entry => {
         const row = [
