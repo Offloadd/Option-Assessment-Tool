@@ -6,7 +6,7 @@ function updateVisualization() {
     
     // Get actual rendered height instead of hardcoded value
     const height = vizDiv.offsetHeight || 274;
-    const minZoneHeight = 25; // Minimum visible height for each zone
+    const minZoneHeight = 30; // Minimum visible height for each zone
     
     // Get percentages from values
     const percentages = getPercentages();
@@ -47,9 +47,9 @@ function updateVisualization() {
     
     // Dynamic stress gradient: low stress = YELLOW, high stress = red
     // At 10-40% -> YELLOW, at 40-60% -> orange, at 60%+ -> red
-    const stressGradient = state.stressorPercent <= 40 
+    const stressGradient = stressorPercent <= 40 
         ? 'linear-gradient(to bottom, #FFFF00 0%, #FFFF33 50%, #FFCC00 100%)' // Low stress: YELLOW
-        : state.stressorPercent <= 60
+        : stressorPercent <= 60
         ? 'linear-gradient(to bottom, #FFCC00 0%, #FF9900 50%, #FF6600 100%)' // Medium stress: orange
         : 'linear-gradient(to bottom, #FF4500 0%, #DC143C 50%, #B22222 100%)'; // High stress: red
     
@@ -58,9 +58,9 @@ function updateVisualization() {
     
     // Dynamic opportunity gradient: low = light green, high = yellow-green
     // At 10-50% -> light green, at 50-65% -> brighter green, at 65%+ -> yellow-green
-    const opportunityGradient = state.opportunityPercent <= 50
+    const opportunityGradient = opportunityPercent <= 50
         ? 'linear-gradient(to top, #32CD32 0%, #3CB371 50%, #90EE90 100%)' // Low opportunity: lime to light green
-        : state.opportunityPercent <= 65
+        : opportunityPercent <= 65
         ? 'linear-gradient(to top, #3CB371 0%, #7FFF00 50%, #ADFF2F 100%)' // Medium opportunity: sea green to chartreuse
         : 'linear-gradient(to top, #7FFF00 0%, #ADFF2F 50%, #FFFF00 100%)'; // High opportunity: chartreuse to yellow
     
