@@ -79,9 +79,9 @@ function saveCheckIn() {
 }
 
 function resetForm() {
-    state.stressorValue = 1;
-    state.stabilizerValue = 1;
-    state.opportunityValue = 1;
+    state.stressorValue = 10;
+    state.stabilizerValue = 10;
+    state.opportunityValue = 10;
     state.stressorNotes = '';
     state.stabilizerNotes = '';
     state.opportunityNotes = '';
