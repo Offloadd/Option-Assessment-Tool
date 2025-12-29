@@ -9,9 +9,9 @@ const state = {
     hijackingEvent: '',
     
     // Slider values (1-20 scale, independent)
-    stressorValue: 1,
-    stabilizerValue: 1,
-    opportunityValue: 1,
+    stressorValue: 10,
+    stabilizerValue: 10,
+    opportunityValue: 10,
     
     // Detail notes for each zone
     stressorNotes: '',
