@@ -1,7 +1,7 @@
 // calculations.js - Slider Calculations and Save Logic
 
 const MIN_VALUE = 1;
-const MAX_VALUE = 10;
+const MAX_VALUE = 20;
 
 // Update a slider value (1-10 scale, independent)
 function updateValue(type, newValue) {
@@ -79,9 +79,9 @@ function saveCheckIn() {
 }
 
 function resetForm() {
-    state.stressorValue = 5;
-    state.stabilizerValue = 5;
-    state.opportunityValue = 5;
+    state.stressorValue = 1;
+    state.stabilizerValue = 1;
+    state.opportunityValue = 1;
     state.stressorNotes = '';
     state.stabilizerNotes = '';
     state.opportunityNotes = '';
