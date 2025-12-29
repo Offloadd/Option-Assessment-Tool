@@ -8,10 +8,10 @@ const state = {
     activeLifeArea: null,
     hijackingEvent: '',
     
-    // Percentage sliders (always sum to 100%)
-    stressorPercent: 34,      // Default split
-    stabilizerPercent: 33,
-    opportunityPercent: 33,
+    // Slider values (1-10 scale, independent)
+    stressorValue: 5,
+    stabilizerValue: 5,
+    opportunityValue: 5,
     
     // Detail notes for each zone
     stressorNotes: '',
