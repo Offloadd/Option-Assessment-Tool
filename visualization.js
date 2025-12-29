@@ -85,17 +85,17 @@ function updateVisualization() {
         
         <!-- Percentage labels anchored to right of legend -->
         <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
-            <span>Stressors ${state.stressorValue} (${Math.round(stressorPercent)}%)</span>
+            <span>Stressors (${Math.round(stressorPercent)}%)</span>
             ${state.stressorNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.stressorNotes + '</span>' : ''}
         </div>
         
         <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
-            <span>Stabilizers ${state.stabilizerValue} (${Math.round(stabilizerPercent)}%)</span>
+            <span>Stabilizers (${Math.round(stabilizerPercent)}%)</span>
             ${state.stabilizerNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.stabilizerNotes + '</span>' : ''}
         </div>
         
         <div style="position: absolute; top: ${stressHeight + regulatedHeight}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%); display: flex; align-items: center; gap: 12px;">
-            <span>Opportunity ${state.opportunityValue} (${Math.round(opportunityPercent)}%)</span>
+            <span>Opportunity (${Math.round(opportunityPercent)}%)</span>
             ${state.opportunityNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.opportunityNotes + '</span>' : ''}
         </div>
     `;
