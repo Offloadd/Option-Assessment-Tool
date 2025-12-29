@@ -52,7 +52,7 @@ function render() {
                         <div style="margin-bottom: 3px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 1px;">
                                 <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stressors</div>
-                                <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorValue}%</div>
+                                <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorValue}</div>
                                 <input type="range" min="${MIN_VALUE}" max="${MAX_VALUE}" value="${state.stressorValue}" oninput="updateValue('stressor', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #FFFF00, #FF9900, #DC143C);">
                             </div>
                             <textarea placeholder="Notes" oninput="updateNotes('stressor', this.value)" style="width: 100%; padding: 1px 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 12px; resize: vertical;">${state.stressorNotes}</textarea>
@@ -61,7 +61,7 @@ function render() {
                         <div style="margin-bottom: 3px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 1px;">
                                 <div style="color: #1976d2; font-size: 12px; font-weight: 600; min-width: 75px;">🛡️ Stabilizers</div>
-                                <div style="color: #1976d2; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stabilizerValue}%</div>
+                                <div style="color: #1976d2; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stabilizerValue}</div>
                                 <input type="range" min="${MIN_VALUE}" max="${MAX_VALUE}" value="${state.stabilizerValue}" oninput="updateValue('stabilizer', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #87CEEB, #4682B4, #1E90FF);">
                             </div>
                             <textarea placeholder="Notes" oninput="updateNotes('stabilizer', this.value)" style="width: 100%; padding: 1px 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 12px; resize: vertical;">${state.stabilizerNotes}</textarea>
@@ -70,7 +70,7 @@ function render() {
                         <div style="margin-bottom: 3px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 1px;">
                                 <div style="color: #4caf50; font-size: 12px; font-weight: 600; min-width: 75px;">💚 Opportunity</div>
-                                <div style="color: #4caf50; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.opportunityValue}%</div>
+                                <div style="color: #4caf50; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.opportunityValue}</div>
                                 <input type="range" min="${MIN_VALUE}" max="${MAX_VALUE}" value="${state.opportunityValue}" oninput="updateValue('opportunity', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #32CD32, #7FFF00, #FFFF00);">
                             </div>
                             <textarea placeholder="Notes" oninput="updateNotes('opportunity', this.value)" style="width: 100%; padding: 1px 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 12px; resize: vertical;">${state.opportunityNotes}</textarea>
