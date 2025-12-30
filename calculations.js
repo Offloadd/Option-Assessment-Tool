@@ -41,7 +41,7 @@ function validateSave() {
     return errors;
 }
 
-function saveCheckIn() {
+async function saveCheckIn() {
     const errors = validateSave();
     
     if (errors.length > 0) {
@@ -71,11 +71,18 @@ function saveCheckIn() {
     
     state.entries.unshift(entry);
     
-    saveToFirestore();
+    const saved = await saveToFirestore(entry);
     
-    resetForm();
-    render();
-    displayEntries();
+    if (saved) {
+        alert('✓ Check-in saved to cloud successfully!');
+        resetForm();
+        render();
+        displayEntries();
+    } else {
+        alert('✗ ERROR: Failed to save check-in to cloud. Your data was NOT saved. Please try again.');
+        // Remove from local state since it didn't save
+        state.entries.shift();
+    }
 }
 
 function resetForm() {
