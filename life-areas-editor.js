@@ -74,21 +74,21 @@ function addNewLifeArea() {
     };
     
     input.value = '';
-    saveToFirestore();
+    saveLifeAreasToFirestore(state.lifeAreas);
     renderLifeAreasList();
 }
 
 function updateLifeAreaLabel(areaKey, newLabel) {
     if (state.lifeAreas[areaKey]) {
         state.lifeAreas[areaKey].label = newLabel;
-        saveToFirestore();
+        saveLifeAreasToFirestore(state.lifeAreas);
     }
 }
 
 function toggleLifeAreaVisibility(areaKey, visible) {
     if (state.lifeAreas[areaKey]) {
         state.lifeAreas[areaKey].visible = visible;
-        saveToFirestore();
+        saveLifeAreasToFirestore(state.lifeAreas);
     }
 }
 
@@ -101,7 +101,7 @@ function deleteLifeArea(areaKey) {
             state.activeLifeArea = null;
         }
         
-        saveToFirestore();
+        saveLifeAreasToFirestore(state.lifeAreas);
         renderLifeAreasList();
     }
 }
