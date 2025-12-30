@@ -74,25 +74,36 @@ function addNewLifeArea() {
     };
     
     input.value = '';
-    saveLifeAreasToFirestore(state.lifeAreas);
+    const saved = await saveLifeAreasToFirestore(state.lifeAreas);
+    if (saved) {
+        alert('✓ Life area added and saved to cloud');
+    } else {
+        alert('✗ ERROR: Failed to save life area. Please try again.');
+    }
     renderLifeAreasList();
 }
 
-function updateLifeAreaLabel(areaKey, newLabel) {
+async function updateLifeAreaLabel(areaKey, newLabel) {
     if (state.lifeAreas[areaKey]) {
         state.lifeAreas[areaKey].label = newLabel;
-        saveLifeAreasToFirestore(state.lifeAreas);
+        const saved = await saveLifeAreasToFirestore(state.lifeAreas);
+        if (!saved) {
+            alert('✗ ERROR: Failed to save changes. Please try again.');
+        }
     }
 }
 
-function toggleLifeAreaVisibility(areaKey, visible) {
+async function toggleLifeAreaVisibility(areaKey, visible) {
     if (state.lifeAreas[areaKey]) {
         state.lifeAreas[areaKey].visible = visible;
-        saveLifeAreasToFirestore(state.lifeAreas);
+        const saved = await saveLifeAreasToFirestore(state.lifeAreas);
+        if (!saved) {
+            alert('✗ ERROR: Failed to save changes. Please try again.');
+        }
     }
 }
 
-function deleteLifeArea(areaKey) {
+async function deleteLifeArea(areaKey) {
     if (confirm('Delete this life area? This cannot be undone.')) {
         delete state.lifeAreas[areaKey];
         
@@ -101,7 +112,12 @@ function deleteLifeArea(areaKey) {
             state.activeLifeArea = null;
         }
         
-        saveLifeAreasToFirestore(state.lifeAreas);
+        const saved = await saveLifeAreasToFirestore(state.lifeAreas);
+        if (saved) {
+            alert('✓ Life area deleted and saved to cloud');
+        } else {
+            alert('✗ ERROR: Failed to delete. Please try again.');
+        }
         renderLifeAreasList();
     }
 }
