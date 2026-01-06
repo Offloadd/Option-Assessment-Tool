@@ -43,7 +43,10 @@ function renderEntry(entry) {
                         ${hijackingBadge}
                     </div>
                 </div>
-                <button onclick="deleteEntry('${entry.timestamp}')" style="padding: 4px 8px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
+                <div style="display: flex; gap: 4px;">
+                    <button onclick="loadEntry('${entry.timestamp}')" style="padding: 4px 12px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">View</button>
+                    <button onclick="deleteEntry('${entry.timestamp}')" style="padding: 4px 8px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
+                </div>
             </div>
             
             <!-- Percentages -->
@@ -101,4 +104,31 @@ function exportEntries() {
     }).catch(() => {
         alert('Failed to copy to clipboard');
     });
+}
+
+function loadEntry(timestamp) {
+    const entry = state.entries.find(e => e.timestamp === timestamp);
+    if (!entry) return;
+    
+    // Load all data back into the form
+    state.topicLabel = entry.topicLabel || '';
+    state.activeLifeArea = entry.lifeArea || null;
+    state.hijackingEvent = entry.hijackingEvent || '';
+    
+    // Load slider values (use the raw values if available, otherwise fall back to percentages)
+    state.stressorValue = entry.stressorValue || 10;
+    state.stabilizerValue = entry.stabilizerValue || 10;
+    state.opportunityValue = entry.opportunityValue || 10;
+    
+    // Load notes
+    state.stressorNotes = entry.stressorNotes || '';
+    state.stabilizerNotes = entry.stabilizerNotes || '';
+    state.opportunityNotes = entry.opportunityNotes || '';
+    
+    // Re-render everything
+    render();
+    updateVisualization();
+    
+    // Scroll to top so user can see the visualization
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
