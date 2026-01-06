@@ -74,25 +74,23 @@ async function deleteEntry(timestamp) {
 }
 
 function exportEntries() {
-    // Prompt user for how many entries or days
-    const input = prompt('How many entries to export?\nExamples: "50" (50 entries) or "7d" (last 7 days) or "all"');
+    const countInput = document.getElementById('exportCount');
+    const typeSelect = document.getElementById('exportType');
     
-    if (!input) return; // User cancelled
+    const count = parseInt(countInput.value);
+    const type = typeSelect.value;
+    
+    if (isNaN(count) || count <= 0) {
+        alert('Please enter a valid number greater than 0');
+        return;
+    }
     
     let entriesToExport = [];
     
-    if (input.toLowerCase() === 'all') {
-        entriesToExport = state.entries;
-    } else if (input.toLowerCase().endsWith('d')) {
-        // Days mode: "7d" = last 7 days
-        const days = parseInt(input);
-        if (isNaN(days) || days <= 0) {
-            alert('Invalid format. Use a number like "7d" for 7 days.');
-            return;
-        }
-        
+    if (type === 'days') {
+        // Days mode
         const cutoffDate = new Date();
-        cutoffDate.setDate(cutoffDate.getDate() - days);
+        cutoffDate.setDate(cutoffDate.getDate() - count);
         
         entriesToExport = state.entries.filter(entry => {
             const entryDate = new Date(entry.timestamp);
@@ -100,17 +98,11 @@ function exportEntries() {
         });
         
         if (entriesToExport.length === 0) {
-            alert(`No entries found in the last ${days} days.`);
+            alert(`No entries found in the last ${count} days.`);
             return;
         }
     } else {
-        // Number mode: "50" = 50 entries
-        const count = parseInt(input);
-        if (isNaN(count) || count <= 0) {
-            alert('Invalid format. Use a number like "50" or "7d" for days.');
-            return;
-        }
-        
+        // Entries mode
         entriesToExport = state.entries.slice(0, count);
     }
     
@@ -119,7 +111,7 @@ function exportEntries() {
         return;
     }
     
-    let csv = 'Timestamp,Topic,Life Area,Hijacking,Stressors %,Stabilizers %,Opportunity %,Stressors Notes,Stabilizers Notes,Opportunity Notes\n';
+    let csv = 'Timestamp,Topic,Life Area,Hijacking,Stressor %,Stabilizer %,Opportunity %,Stressor Notes,Stabilizer Notes,Opportunity Notes\n';
     
     entriesToExport.forEach(entry => {
         const row = [
