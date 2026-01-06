@@ -74,16 +74,54 @@ async function deleteEntry(timestamp) {
 }
 
 function exportEntries() {
-    const last20 = state.entries.slice(0, 20);
+    // Prompt user for how many entries or days
+    const input = prompt('How many entries to export?\nExamples: "50" (50 entries) or "7d" (last 7 days) or "all"');
     
-    if (last20.length === 0) {
+    if (!input) return; // User cancelled
+    
+    let entriesToExport = [];
+    
+    if (input.toLowerCase() === 'all') {
+        entriesToExport = state.entries;
+    } else if (input.toLowerCase().endsWith('d')) {
+        // Days mode: "7d" = last 7 days
+        const days = parseInt(input);
+        if (isNaN(days) || days <= 0) {
+            alert('Invalid format. Use a number like "7d" for 7 days.');
+            return;
+        }
+        
+        const cutoffDate = new Date();
+        cutoffDate.setDate(cutoffDate.getDate() - days);
+        
+        entriesToExport = state.entries.filter(entry => {
+            const entryDate = new Date(entry.timestamp);
+            return entryDate >= cutoffDate;
+        });
+        
+        if (entriesToExport.length === 0) {
+            alert(`No entries found in the last ${days} days.`);
+            return;
+        }
+    } else {
+        // Number mode: "50" = 50 entries
+        const count = parseInt(input);
+        if (isNaN(count) || count <= 0) {
+            alert('Invalid format. Use a number like "50" or "7d" for days.');
+            return;
+        }
+        
+        entriesToExport = state.entries.slice(0, count);
+    }
+    
+    if (entriesToExport.length === 0) {
         alert('No entries to export');
         return;
     }
     
     let csv = 'Timestamp,Topic,Life Area,Hijacking,Stressors %,Stabilizers %,Opportunity %,Stressors Notes,Stabilizers Notes,Opportunity Notes\n';
     
-    last20.forEach(entry => {
+    entriesToExport.forEach(entry => {
         const row = [
             entry.timestamp,
             entry.topicLabel,
@@ -100,7 +138,7 @@ function exportEntries() {
     });
     
     navigator.clipboard.writeText(csv).then(() => {
-        alert('Last 20 entries copied to clipboard as CSV!');
+        alert(`${entriesToExport.length} entries copied to clipboard as CSV!`);
     }).catch(() => {
         alert('Failed to copy to clipboard');
     });
